@@ -3,32 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculo de IMC</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-<div>
-    <h1>Calcule seu IMC (Indice de Massa Corporal) </h1>
 
-    <h2>Calculadora de IMC</h2>
-    <form id="imcForm">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" required>
-        <br>
-        <br>
-        <label for="peso" >Peso (kg):</label>
-        <input type="number" id="peso" step="0.01" required>
-        <br>
-        <br>
-        <label for="altura" >Altura (m):</label>
-        <input type="number" id="altura" step="0.01" required>
-        <br>
-        <br>
-        <button type="submit" >Calcular</button>
-    </form>
+<h1>Calcule seu IMC</h1>
 
-    <h3>Resultado:</h3>
-    <p id="resultado"></p>
+<form id="imcForm">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" required>
 
-</div>
+    <label for="peso">Peso (kg):</label>
+    <input type="number" id="peso" step="0.01" required>
+
+    <label for="altura">Altura (m):</label>
+    <input type="number" id="altura" step="0.01" required>
+
+    <button type="submit">Calcular</button>
+</form>
+
+<h3>Resultado:</h3>
+<p id="resultado"></p>
 
 <script>
     document.getElementById("imcForm").addEventListener("submit", function(event) {
@@ -57,12 +52,11 @@
                 else if (data.classificacao.includes("abaixo")) cor = "blue";
                 else cor = "red";
 
-
                 resultado.innerHTML = `
-                    <strong style="color:${cor}; font-size: 18px;">${data.mensagem}</strong><br><br>
-                    <strong>IMC:</strong> ${data.imc.toFixed(2)}<br>
-                    <strong>Classificação:</strong> ${data.classificacao}
-                `;
+                <strong style="color:${cor}; font-size: 18px;">${data.mensagem}</strong>
+                <strong>IMC:</strong> ${data.imc.toFixed(2)}<br>
+                <strong>Classificação:</strong> ${data.classificacao}
+            `;
             })
             .catch(error => {
                 console.error("Erro ao calcular IMC:", error);
