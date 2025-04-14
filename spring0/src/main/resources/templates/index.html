@@ -1,67 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Calculo de IMC</title>
-    <link rel="stylesheet" th:href="@{/css/index.css}">
+  <meta charset="UTF-8">
+  <title>Projeto Calculadora de IMC</title>
+  <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
 
-<h1>Calcule seu IMC</h1>
+<header>
+  <h1>Projeto Calculadora de IMC</h1>
+  <p>A Calculadora de IMC avalia se seu peso está adequado em relação à sua altura, <br> ajudando a identificar se você está com o peso ideal, abaixo ou acima do recomendado.</p> <br><br>
+  <p>Conheça os integrantes do projeto e acesse a calculadora de IMC</p>
+</header>
 
-<form id="imcForm">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" required>
+<section class="integrantes">
+  <div class="integrante">
+    <img src="css/images/vitoria.jpg" alt="Vitória">
+    <p>Vitória</p>
+  </div>
+  <div class="integrante">
+    <img src="css/images/daniela.png" alt="Daniela">
+    <p>Daniela</p>
+  </div>
+  <div class="integrante">
+    <img src="css/images/pedro.jpg" alt="Pedro">
+    <p>Pedro</p>
+  </div>
+  <div class="integrante">
+    <img src="css/images/lucas.png" alt="Lucas">
+    <p>Lucas</p>
+  </div>
+  <div class="integrante">
+    <img src="css/images/welber.png" alt="Welber">
+    <p>Welber</p>
+  </div>
+  <div class="integrante">
+    <img src="css/images/ryan.jpg" alt="Ryan">
+    <p>Ryan</p>
+  </div>
+</section>
 
-    <label for="peso">Peso (kg):</label>
-    <input type="number" id="peso" step="0.01" required>
+<div class="botao">
+  <a href="/calculadora">Ir para a Calculadora de IMC</a>
+</div>
 
-    <label for="altura">Altura (m):</label>
-    <input type="number" id="altura" step="0.01" required>
-
-    <button type="submit">Calcular</button>
-</form>
-
-<h3>Resultado:</h3>
-<p id="resultado"></p>
-
-<script>
-    document.getElementById("imcForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const nome = document.getElementById("nome").value;
-        const peso = parseFloat(document.getElementById("peso").value);
-        const altura = parseFloat(document.getElementById("altura").value);
-
-        fetch("/calcular", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome: nome, peso: peso, altura: altura })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Resposta do servidor inválida.");
-                }
-                return response.json();
-            })
-            .then(data => {
-                const resultado = document.getElementById("resultado");
-                let cor = "";
-                if (data.classificacao.includes("peso normal")) cor = "green";
-                else if (data.classificacao.includes("Sobrepeso")) cor = "orange";
-                else if (data.classificacao.includes("abaixo")) cor = "blue";
-                else cor = "red";
-
-                resultado.innerHTML = `
-                <strong style="color:${cor}; font-size: 18px;">${data.mensagem}</strong>
-                <strong>IMC:</strong> ${data.imc.toFixed(2)}<br>
-                <strong>Classificação:</strong> ${data.classificacao}
-            `;
-            })
-            .catch(error => {
-                console.error("Erro ao calcular IMC:", error);
-            });
-    });
-</script>
 </body>
 </html>

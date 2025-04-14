@@ -1,6 +1,5 @@
 package br.gov.sp.cps;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,10 @@ public class app {
     public String index() {
         return "index";
     }
-
+    @GetMapping("/calculadora")
+    public String calculadora() {
+        return "calculadora";
+    }
     @Autowired
     @Qualifier("classificacao")
     private List<Map<String, Object>> classificacoes;
